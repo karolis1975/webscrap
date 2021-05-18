@@ -1,0 +1,14 @@
+<div id="output">
+    {% for e in range(length) %}
+        <a href="{{ href[e] }}" class="phone">
+            <img src="{{ logo[e] }}" class="logo">
+            <img src="{{ img[e] }}" class="photo">
+            <h3 class="name">
+                {{ name[e] }}
+            </h3>
+            <p class="price">
+                {{ price[e] }} EUR
+            </p>
+        </a>
+    {% endfor %}
+</div>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Scraping</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <form>
+            <input type="text" placeholder="Įveskite daikto pavadinimą" id="input" name="inputVal">
+            <input type="button" value="Ieškoti" id="search">
+        </form>
+
+        <div id="results">
+
+        </div>
+    </div>
+    <script type=text/javascript>
+    $(function()
+    {
+        $('#search').bind('click', function()
+        {
+            const output = document.querySelector("#output");
+            if(output != null)
+            output.innerHTML = "";
+                $.ajax({
+                url:'/updateData',
+                type: "POST",
+                data:
+                {
+                    inputVal: $('#input').val()
+                },
+                success: function(response)
+                {
+                    $(results).replaceWith(response)
+                }
+                });
+        });
+    });
+    </script>
+</body>
+</html>
