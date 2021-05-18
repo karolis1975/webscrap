@@ -31,7 +31,7 @@ def updateData(): # metodas, kuris grazina musu sugeneruota teksta
     inputVal = request.form.get("inputVal") # gauna irasyta teksta is HTML input laukelio
     shops = [
         {
-        'url': 'https://www.mobili.lt/lt/greita_paieska.html?searc=',
+        'url': 'https://www.mobili.lt/lt/greita_paieska.html?search=',
         'product': '//*[@id="body_inner"]/table/tbody/tr/td[2]/div/div[2]/div[2]/table/tbody/tr/td[1]/a',
         'name': '//*[@id="tlf_info_modelis"]',
         'price': '//*[@id="phone_price2"]/div[1]/span',
