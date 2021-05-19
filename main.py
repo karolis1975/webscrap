@@ -23,7 +23,6 @@ firebaseConfig = {'apiKey': "AIzaSyDWmSRRcsbpXOp2SgaO2lS8R6dKsoNzv9o",
 firebase = pyrebase.initialize_app(firebaseConfig)
 
 db = firebase.database()
-db.remove()
 
 @app.route('/updateData', methods=['POST'])
 def updateData(): # metodas, kuris grazina musu sugeneruota teksta
@@ -35,7 +34,7 @@ def updateData(): # metodas, kuris grazina musu sugeneruota teksta
         'product': '//*[@id="body_inner"]/table/tbody/tr/td[2]/div/div[2]/div[2]/table/tbody/tr/td[1]/a',
         'name': '//*[@id="tlf_info_modelis"]',
         'price': '//*[@id="phone_price2"]/div[1]/span',
-        'img': '//*[@id="ti_img_kaina"]/img',
+        'img': '//*[@id="body_inner"]/table/tbody/tr/td[2]/div/div[2]/div[2]/table/tbody/tr/td[1]/a/img',
         'logo': '//*[@id="head_container"]/div[1]/a/img'
         },
         {
@@ -43,7 +42,7 @@ def updateData(): # metodas, kuris grazina musu sugeneruota teksta
         'product': '//*[@id="product_items"]/div/div[1]/a',
         'name': '//*[@id="products_detailed"]/div[1]/div/div[2]/h1',
         'price': '//*[@id="products_add2cart"]/form/div[3]/div[1]/div',
-        'img': '//*[@id="slider"]/div/div/div[2]/a/img',
+        'img': '//*[@id="product_items"]/div/div[1]/a/span[1]/img',
         'logo': '//*[@id="logo"]/a/img'
         },
     ]
@@ -59,11 +58,11 @@ def updateData(): # metodas, kuris grazina musu sugeneruota teksta
 
         driver = webdriver.Chrome(PATH, options=options) # nustatom chrome narsykles nustatymus
         driver.get(URL) # paleidziame svetaine su savo norimu URL ir nustatymais
+        img.append(str(driver.find_element_by_xpath(shops[x]['img']).get_attribute("src")))
         driver.find_element_by_xpath(shops[x]['product']).click()
         name.append(driver.find_element_by_xpath(shops[x]['name']).text) # paima is DOM elemento teksta
         price.append(driver.find_element_by_xpath(shops[x]['price']).text)
         href.append(driver.current_url)
-        img.append(str(driver.find_element_by_xpath(shops[x]['img']).get_attribute("src")))
         logo.append(str(driver.find_element_by_xpath(shops[x]['logo']).get_attribute("src")))
         data = {'name': name[x], 'price': price[x], 'img': img[x], 'logo': logo[x], 'href': href[x]}
         db.push(data)
@@ -82,7 +81,8 @@ def updateData(): # metodas, kuris grazina musu sugeneruota teksta
         href.append(phone.val()['href'])
         img.append(phone.val()['img'])
         logo.append(phone.val()['logo'])
-    
+
+    db.remove()
     return render_template('data.html',name=name, href=href, price=price, img=img, logo=logo, length=length)
 @app.route('/')
 def hello_world(): # pagrinidis metodas

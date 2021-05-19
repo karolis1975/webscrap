@@ -52,7 +52,7 @@ input:focus
     font-weight: bold;
     cursor: pointer;
 }
-#output
+#results
 {
     background: white;
     margin: 50px 0;
@@ -63,9 +63,8 @@ input:focus
 }
 .phone
 {
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     padding: 15px;
-    background: white;
+    background: linear-gradient(#dcdcda, transparent);
     color: rgb(63, 63, 63);
     cursor: pointer;
 }
